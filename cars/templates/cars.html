@@ -104,7 +104,7 @@
   </style>
 
   <form method="GET" action="{% url 'cars_list' %}">
-    <input type="text" name="search" placeholder="Buscar carro...">
+    <input type="text" name="search" placeholder="Buscar carro..." value="{{ request.GET.search }}">
     <button type="submit">Buscar</button>
   </form>
 
@@ -113,9 +113,16 @@
       {% for car in cars %}
         <a href="{% url 'car_detail' car.pk %}">
           <div class="car-card">
-            <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
+
+            {% if car.photo and car.photo.name %}
+              <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
+            {% else %}
+              <p class="no-photo">Foto não disponível</p>
+            {% endif %}
+
             <h2>{{ car.brand }} {{ car.model }}</h2>
             <p>{{ car.factory_year }} - R$ {{ car.value }}</p>
+
           </div>
         </a>
       {% endfor %}
@@ -123,4 +130,5 @@
       <p class="no-results">Nenhum carro encontrado.</p>
     {% endif %}
   </div>
+
 {% endblock %}
