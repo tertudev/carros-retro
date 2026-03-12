@@ -1,21 +1,144 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    {% extends 'base.html' %}
+{% extends 'base.html' %}
 
-    {% block content %}
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+{% block content %}
 
-            <table>
-                {{ form.as_table }}
-            </table>
-            <input type="submit" value="Cadastrar" class="btn btn-primary">
-        </form>
-    {% endblock %}
-</body>
-</html>
+<style>
+
+.form-container{
+    display:flex;
+    justify-content:center;
+}
+
+.form-card{
+    background:white;
+    width:100%;
+    max-width:600px;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.form-title{
+    font-size:24px;
+    font-weight:600;
+    margin-bottom:25px;
+    text-align:center;
+    color:#111827;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:18px;
+}
+
+.form-group label{
+    font-size:14px;
+    font-weight:500;
+    margin-bottom:6px;
+    color:#374151;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #d1d5db;
+    font-size:14px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 0 2px rgba(37,99,235,0.15);
+}
+
+.submit-btn{
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    font-size:15px;
+    font-weight:500;
+    cursor:pointer;
+}
+
+.submit-btn:hover{
+    background:#1d4ed8;
+}
+
+.errorlist{
+    color:#dc2626;
+    font-size:13px;
+    list-style:none;
+    padding:0;
+    margin-bottom:5px;
+}
+
+</style>
+
+<div class="form-container">
+
+<div class="form-card">
+
+<div class="form-title">
+Cadastrar Novo Carro
+</div>
+
+<form method="post" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<div class="form-group">
+{{ form.model.errors }}
+<label>Modelo</label>
+{{ form.model }}
+</div>
+
+<div class="form-group">
+{{ form.brand.errors }}
+<label>Marca</label>
+{{ form.brand }}
+</div>
+
+<div class="form-group">
+{{ form.factory_year.errors }}
+<label>Ano</label>
+{{ form.factory_year }}
+</div>
+
+<div class="form-group">
+{{ form.value.errors }}
+<label>Preço</label>
+{{ form.value }}
+</div>
+
+<div class="form-group">
+{{ form.photo.errors }}
+<label>Foto</label>
+{{ form.photo }}
+</div>
+
+<div class="form-group">
+{{ form.bio.errors }}
+<label>Descrição</label>
+{{ form.bio }}
+</div>
+
+<button type="submit" class="submit-btn">
+Cadastrar Carro
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+{% endblock %}
