@@ -1,103 +1,154 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}{% endblock %}</title>
-  <style>
-    body {
-        font-family: 'Open Sans', sans-serif;
-        background-color: #f7f7f7;
-        color: #333;
-        margin: 0;
-        padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{% endblock %}</title>
 
-    header {
-        background-color: #0096c7;
-        color: #fff;
-        text-align: center;
-    }
+<style>
 
-    footer {
-        background-color: #ccc;
-        color: #333;
-        padding: 20px;
-        text-align: center;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-    nav {
-        background-color: #0096c7;
-        color: #fff;
-        height: 50px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+body{
+    font-family:'Inter', sans-serif;
+    background:#f5f7fa;
+    color:#1f2937;
+    margin:0;
+}
 
-    nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-    }
+/* HEADER */
 
-    nav ul li {
-        margin: 0 10px;
-    }
+header{
+    background:#111827;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
 
-    nav ul li a {
-        color: #fff;
-        text-decoration: none;
-        font-size: 16px;
-        padding: 15px;
-        transition: all 0.3s ease;
-    }
+.nav-container{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 20px;
+}
 
-    nav ul li a:hover {
-        background-color: #32bbe8;
-    }
+/* LOGO */
 
-    nav ul li.active a {
-        background-color: #666;
-    }
+.logo{
+    display:flex;
+    align-items:center;
+    font-size:20px;
+    font-weight:600;
+    color:white;
+    text-decoration:none;
+}
 
-    nav ul li.active a:hover {
-        background-color: #999;
-    }
+.logo span{
+    color:#2563eb;
+}
 
-  </style>
+/* MENU */
+
+nav ul{
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin:0;
+    padding:0;
+}
+
+nav ul li{
+    font-size:14px;
+}
+
+nav ul li a{
+    color:#e5e7eb;
+    text-decoration:none;
+    font-weight:500;
+    padding:8px 12px;
+    border-radius:6px;
+    transition:all 0.2s ease;
+}
+
+nav ul li a:hover{
+    background:#2563eb;
+    color:white;
+}
+
+/* USER TEXT */
+
+.user-greeting{
+    color:#9ca3af;
+    font-size:14px;
+}
+
+/* MAIN */
+
+main{
+    max-width:1200px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+/* FOOTER */
+
+footer{
+    background:#111827;
+    color:#9ca3af;
+    text-align:center;
+    padding:20px;
+    font-size:14px;
+}
+
+</style>
+
 </head>
+
 <body>
-  <header>
-    <nav>
-      <ul>
-        {% if user.is_authenticated %}
-          <li>Olá, {{ user.username }}</li>
-          <li><a href="{% url 'new_car' %}">Cadastrar Carro</a></li>
-        {% endif %}
 
-        {% if not user.is_authenticated %}
-          <li><a href="{% url 'register' %}">Cadastre-se</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-        {% endif %}
+<header>
 
-        <li><a href="{% url 'cars_list' %}">Carros</a></li>
+<div class="nav-container">
 
-        {% if user.is_authenticated %}
-          <li><a href="{% url 'logout' %}">Sair</a></li>
-        {% endif %}
-      </ul>
-    </nav>
-  </header>
+<a href="{% url 'cars_list' %}" class="logo">
+🚗 Pycode<span>Cars</span>
+</a>
 
-  <main>
-    {% block content %}
-    {% endblock %}
-  </main>
+<nav>
+<ul>
 
-  <footer>
-    <p>&copy; 2023 PycodeBR Multimarcas</p>
-  </footer>
+{% if user.is_authenticated %}
+
+<li class="user-greeting">Olá, {{ user.username }}</li>
+<li><a href="{% url 'cars_list' %}">Carros</a></li>
+<li><a href="{% url 'new_car' %}">Cadastrar Carro</a></li>
+<li><a href="{% url 'logout' %}">Sair</a></li>
+
+{% else %}
+
+<li><a href="{% url 'cars_list' %}">Carros</a></li>
+<li><a href="{% url 'register' %}">Cadastre-se</a></li>
+<li><a href="{% url 'login' %}">Login</a></li>
+
+{% endif %}
+
+</ul>
+</nav>
+
+</div>
+
+</header>
+
+<main>
+{% block content %}
+{% endblock %}
+</main>
+
+<footer>
+<p>&copy; 2026 PycodeCars Todos Os Direitos Reservados</p>
+</footer>
+
 </body>
 </html>
